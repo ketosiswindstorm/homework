@@ -1,0 +1,19 @@
+<a class="nav-btn" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  Home
+</a>
+
+<a class="nav-btn" href="https://api.rule34.xxx/" target="_blank" rel="noopener" (click)="confirmNavigate()">
+  API Docs
+</a>
+
+<a class="nav-btn" routerLink="/source" routerLinkActive="active">
+  Source Code
+</a>
+
+<div [class]="settingsOpen() ? 'nav-btn active' : 'nav-btn'" (click)="toggleSettingsOpen()">
+  Settings
+</div>
+
+<div class="nav-btn" id="post-count">Posts: {{ this.postService.postCount() }}</div>
+
+<settings [hidden]="!settingsOpen()"></settings>

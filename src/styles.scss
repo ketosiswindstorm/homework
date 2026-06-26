@@ -1,0 +1,165 @@
+/* You can add global styles to this file, and also import other style files */
+
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+          color: (
+                  theme-type: light,
+                  primary: mat.$azure-palette,
+                  tertiary: mat.$blue-palette,
+          ),
+          typography: Roboto,
+          density: 0,
+  ));
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #000008;
+}
+
+root {
+  display: flex;
+  flex-direction: column;
+}
+
+:root {
+  @include mat.fab-overrides((
+          container-color: #b2cdfb,
+          foreground-color: black,
+          container-elevation-shadow: 0 4px 10px 5px rgb(255 255 255 / 0.25),
+  ));
+
+  font-family: monospace;
+  --navigation-bar-height: 80px;
+  --source-navigator-width: 200px;
+}
+
+app-home {
+  display: block;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  height: calc(100vh - var(--navigation-bar-height));
+  max-height: calc(100vh - var(--navigation-bar-height));
+  scrollbar-color: rgba(0, 140, 255, 0.35) rgba(255, 255, 255, 0.04);
+
+  &.fullscreen {
+    overflow: hidden;
+
+    & > post-element {
+      all: unset;
+
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+
+      & .fullscreen-btn {
+        display: none;
+        pointer-events: none;
+      }
+
+      & > img, & > video {
+        margin: unset;
+        max-width: unset;
+        max-height: unset;
+
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+      }
+
+      & .post-tags-wrapper {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        display: none;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+.tag {
+  font-size: 12px;
+  font-weight: 500;
+  user-select: none;
+  padding: 6px 10px;
+  width: max-content;
+  height: min-content;
+  border-radius: 999px;
+  display: inline-flex;
+  letter-spacing: 0.2px;
+  transition: all 160ms ease;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  &.included {
+    background: rgba(80, 255, 80, 0.04);
+    border-color: rgba(80, 255, 80, 0.25);
+  }
+
+  &.excluded {
+    background: rgba(255, 80, 80, 0.04);
+    border-color: rgba(255, 80, 80, 0.25);
+  }
+}
+
+.tag:hover {
+  color: #cfe9ff;
+  cursor: pointer;
+  transform: translateY(-2px);
+  background: rgba(0, 140, 255, 0.18);
+  border-color: rgba(0, 140, 255, 0.5);
+}
+
+.nav-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  padding: 10px 16px;
+  border-radius: 999px;
+
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  transition: all 160ms ease;
+  user-select: none;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.nav-btn.active {
+  background: rgba(0, 140, 255, 0.28);
+  border-color: rgba(0, 140, 255, 0.6);
+  color: #cfe9ff;
+}
+
+.nav-btn--accent {
+  background: rgba(0, 140, 255, 0.15);
+  border-color: rgba(0, 140, 255, 0.35);
+  color: #8cc8ff;
+}
+
+.nav-btn--accent:hover {
+  background: rgba(0, 140, 255, 0.25);
+  border-color: rgba(0, 140, 255, 0.55);
+}

@@ -1,0 +1,109 @@
+img {
+  margin: 20px auto;
+  object-fit: contain;
+  max-width: calc(70vw - var(--source-navigator-width));
+  max-height: calc(70vh - var(--navigation-bar-height));
+}
+
+video {
+  margin: 20px auto;
+  object-fit: contain;
+  width: calc(70vw - var(--source-navigator-width));
+  height: calc(70vh - var(--navigation-bar-height));
+}
+
+img.fullscreen, video.fullscreen {
+  margin: 0;
+  object-fit: contain;
+}
+
+.post-tags-wrapper {
+  margin: 20px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 14px;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+  background: rgba(10, 10, 10, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  max-width: calc(60vw - var(--source-navigator-width));
+  max-height: calc(30vh - var(--navigation-bar-height));
+
+  &.hide {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+  }
+}
+
+.post-tags {
+  flex: 1;
+  gap: 8px;
+  min-height: 0;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  padding: 10px 12px;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+  scrollbar-color: rgba(0, 140, 255, 0.35) rgba(255, 255, 255, 0.04);
+}
+
+.post-tags::-webkit-scrollbar {
+  width: 8px;
+}
+
+.post-tags::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.post-tags::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  transition: all 160ms ease;
+  background: rgba(0, 140, 255, 0.25);
+}
+
+.post-tags::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 140, 255, 0.5);
+}
+
+.post-tags {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 140, 255, 0.35) rgba(255, 255, 255, 0.04);
+}
+
+.fullscreen-btn {
+  top: 20px;
+  right: 20px;
+  color: white;
+  display: flex;
+  width: 2.75rem;
+  cursor: pointer;
+  height: 2.75rem;
+  font-size: 1.5rem;
+  position: absolute;
+  align-items: center;
+  border-radius: 12px;
+  justify-content: center;
+  transition: all 160ms ease;
+  backdrop-filter: blur(10px);
+  background: rgba(10, 10, 10, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  &:hover{
+    font-size: calc(1.5rem * 1.05);
+    transform: scale(1.05);
+  }
+
+  &.hide{
+    width: 0;
+    height: 0;
+    display: none;
+    overflow: hidden;
+  }
+}

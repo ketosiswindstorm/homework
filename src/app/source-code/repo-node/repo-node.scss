@@ -1,0 +1,40 @@
+:host {
+  & > div {
+    display: flex;
+    cursor: pointer;
+
+    &:hover > a {
+      color: #0080ff;
+    }
+
+    &:hover {
+      background-color: lightgray;
+    }
+
+    &.disabled {
+      color: #6a6ad6;
+      font-weight: normal;
+      pointer-events: none;
+
+      & > a {
+        color: #6a6ad6;
+        font-weight: normal;
+      }
+    }
+
+    & > a {
+      color: blue;
+      font-weight: bold;
+      text-indent: 0.5rem;
+      text-decoration: none;
+    }
+
+    & > span:not(:first-child) {
+      text-indent: 0.5rem;
+    }
+
+    & {
+      line-height: 1.5rem;
+    }
+  }
+}

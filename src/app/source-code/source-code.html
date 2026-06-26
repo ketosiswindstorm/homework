@@ -1,0 +1,13 @@
+<div id="source-navigator">
+  @for (entry of entries(); track entry.path) {
+    <repo-node [node]="entry" [disabled]="loading()"></repo-node>
+  }
+</div>
+<div id="code-block">
+  @for (line of getLines(fileData()); track $index) {
+    <div class="line">
+      <b>{{ $index + 1 }}</b>
+      <div>{{ line }}</div>
+    </div>
+  }
+</div>

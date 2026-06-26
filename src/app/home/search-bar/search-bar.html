@@ -1,0 +1,35 @@
+<input
+  type="text"
+  id="search-input"
+  [value]="searchText"
+  (focus)="onFocus()"
+  (keydown)="onKeyDown($event)"
+  (keyup)="onKeyUp($event)"
+  (input)="onInput($event)"
+  autocomplete="off"
+/>
+
+<div id="search-menu" [class]="getClass()">
+  <div id="search-tags">
+    @for (tag of autocomplete(); track $index) {
+      <div [class]="getTagClass(tag, $index)">
+        {{ tag.label }}
+        <div class="controls">
+          <div class="include" (click)="handleTagClick(tag)">+</div>
+          <div class="exclude" (click)="handleTagClickExclude(tag)">-</div>
+        </div>
+      </div>
+    }
+  </div>
+  <div id="included-tags">
+    @for (tag of postService.includedTagSet(); track $index) {
+      <div [class]="getTagClass(tag.name)" (click)="postService.removeTag(tag)">{{ tag.name }}</div>
+    }
+  </div>
+  <div id="excluded-tags">
+    @for (tag of postService.excludedTagSet(); track $index) {
+      <div [class]="getTagClass(tag.name)" (click)="postService.removeExcludedTag(tag)">{{ tag.name }}</div>
+    }
+  </div>
+  <button class="nav-btn" id="send-search" (click)="getNewPosts()">Search</button>
+</div>

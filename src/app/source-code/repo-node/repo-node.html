@@ -1,0 +1,25 @@
+<div
+  (click)="toggle($event)"
+  [class]="disabled ? 'disabled' : ''"
+  [style.padding-left.px]="node.path.split('/').length * 12"
+  [aria-disabled]="disabled"
+>
+  @if (node.type === 'dir') {
+    <span>📁</span>
+    <span>{{ node.name }}</span>
+  } @else {
+    <span>📄</span>
+    <a
+      [routerLink]="['/source']"
+      [queryParams]="{ file: node.path }"
+    >
+      {{ node.name }}
+    </a>
+  }
+</div>
+
+@if (expanded() && node.children?.length) {
+  @for (child of node.children; track child.path) {
+    <repo-node [node]="child"></repo-node>
+  }
+}

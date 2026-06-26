@@ -1,0 +1,47 @@
+:host {
+  gap: 12px;
+  z-index: 100;
+  display: flex;
+  padding-left: 16px;
+  align-items: center;
+  width: calc(100vw - 16px);
+  backdrop-filter: blur(10px);
+  background: rgba(10, 10, 10, 0.85);
+  height: var(--navigation-bar-height);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+a, div {
+  font-size: 19px;
+}
+
+#post-count{
+  right: 15vw;
+  position: absolute;
+}
+
+settings {
+  opacity: 1;
+  left: 50vw;
+  width: 940px;
+  display: flex;
+  padding: 24px;
+  margin: 0 auto;
+  overflow: hidden;
+  max-width: 900px;
+  position: absolute;
+  border-radius: 24px;
+  background: #05070b;
+  flex-direction: column;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  transform: translateX(-50%);
+  transition: all ease-in-out 160ms;
+  top: calc(20px + var(--navigation-bar-height));
+  max-height: calc(100vh - calc(40px + var(--navigation-bar-height)));
+
+  &[hidden] {
+    opacity: 0;
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,33 @@
+@if (post) {
+  <title>{{post.id}}</title>
+  @if (post.file_url.endsWith(".mp4")) {
+    <video
+      #media
+      controls
+      controlsList="nofullscreen"
+      [src]="post.file_url"
+      [poster]="post.preview_url"
+      [loop]="settings.loopEnabled.get()"
+    >
+    </video>
+  } @else {
+    <img
+      #media
+      [src]="post.file_url"
+      [alt]="post.file_url"
+    />
+  }
+  <div class="post-tags-wrapper">
+    <div class="post-tags">
+      @for (tag of post.tags.split(" "); track $index) {
+        <span
+          [class]="postService.getTagClass(decodeHtml(tag))"
+          (click)="postService.handleSimpleTag(decodeHtml(tag))"
+        >
+        {{ decodeHtml(tag) }}
+      </span>
+      }
+    </div>
+  </div>
+  <div (click)="goFullscreen.emit(post.id)" class="fullscreen-btn">⛶</div>
+}

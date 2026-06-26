@@ -1,0 +1,8 @@
+<search-bar></search-bar>
+
+@for (post of postService.posts(); track $index) {
+  <post-element
+    [post]="post"
+    (goFullscreen)="goFullscreen(post.id)"
+  />
+}

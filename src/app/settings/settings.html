@@ -1,0 +1,78 @@
+<div class="settings-section">
+  <span class="settings-section-title">Settings</span>
+</div>
+
+<div class="settings-list">
+  @for (sett of settingsService.getSettings(); track sett.getLabel()) {
+    <div class="setting-card">
+      <div class="setting-info">
+        <span class="setting-label">{{ sett.getLabel() }}</span>
+      </div>
+
+      <div class="setting-control">
+        @switch (typeof sett.get()) {
+          @case ('string') {
+            <div class="floating-field">
+              <input
+                class="setting-input"
+                type="text"
+                [value]="sett.get()"
+                placeholder=" "
+                (keyup)="dispatchValue($event, sett)"
+                (keydown)="dispatchValue($event, sett)"
+              />
+              <label class="floating-label">{{ sett.getLabel() }}</label>
+            </div>
+          }
+          @case ('number') {
+            <div class="floating-field">
+              <input
+                class="setting-input"
+                type="number"
+                [value]="sett.get()"
+                placeholder=" "
+                (keyup)="dispatchValue($event, sett)"
+                (keydown)="dispatchValue($event, sett)"
+              />
+              <label class="floating-label">{{ sett.getLabel() }}</label>
+            </div>
+          }
+          @case ('object') {
+            @if (Array.isArray(sett.get())) {
+              <div class="array-field">
+                <button class="array-add" (click)="addNewSettingEntry(sett)">
+                  + Add
+                </button>
+
+                @for (tag of sett.asArray(); track $index) {
+                  <div class="array-item">
+                    <input
+                      class="setting-input setting-input--compact"
+                      placeholder="Tag..."
+                      [value]="tag"
+                      (input)="handleInput(sett, $index, $event)"
+                    />
+
+                    <button class="array-remove" (click)="removeSettingEntry(sett, $index)">
+                      ✕
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+          }
+          @case ('boolean') {
+            <label class="toggle">
+              <input
+                type="checkbox"
+                [checked]="sett.get()"
+                (click)="dispatchValue($event, sett)"
+              />
+              <span class="toggle-slider"></span>
+            </label>
+          }
+        }
+      </div>
+    </div>
+  }
+</div>
