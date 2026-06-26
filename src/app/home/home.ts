@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { DEFAULT_COMPONENT_CONFIG } from '../../constants/APP_COMPONENT';
-import { PostElement } from './post/post';
-import { SearchBar } from './search-bar/search-bar';
+import { PostElement } from '../post/post';
+import { SearchBar } from '../search-bar/search-bar';
 
 @Component({
   ...DEFAULT_COMPONENT_CONFIG,
@@ -40,6 +40,7 @@ export class Home {
   @HostListener('document:fullscreenchange')
   protected async fullscreenChange() {
     this.fullscreen.set(!!document.fullscreenElement);
+    this.posts.forEach((post) => post.showImageScroll.set(false));
 
     if (this.fullscreen()) {
       return;
@@ -73,10 +74,12 @@ export class Home {
 
     if (evt.key === 'ArrowDown') {
       this.postService.goToNextPost();
+      this.posts.forEach((post) => post.showImageScroll.set(false));
     }
 
     if (evt.key === 'ArrowUp') {
       this.postService.goToPreviousPost();
+      this.posts.forEach((post) => post.showImageScroll.set(false));
     }
   }
 

@@ -20,7 +20,7 @@ export class NavigationBar {
   ) {}
 
   protected confirmNavigate() {
-    return confirm('Are you sure?');
+    return confirm('Are you sure? \nMaybe not the safest place to go...');
   }
 
   protected toggleSettingsOpen() {

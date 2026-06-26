@@ -1,6 +1,6 @@
 import { Component, Input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DEFAULT_COMPONENT_CONFIG } from '../../../constants/APP_COMPONENT';
+import { DEFAULT_COMPONENT_CONFIG } from '../../constants/APP_COMPONENT';
 
 type RepoEntry = {
   name: string;
@@ -11,13 +11,13 @@ type RepoEntry = {
 
 @Component({
   ...DEFAULT_COMPONENT_CONFIG,
-  selector: 'repo-node',
+  selector: 'source-code-node',
   standalone: true,
-  templateUrl: './repo-node.html',
-  styleUrl: './repo-node.scss',
+  templateUrl: './source-code-node.html',
+  styleUrl: './source-code-node.scss',
   imports: [RouterLink],
 })
-export class RepoNode {
+export class SourceCodeNode {
   @Input() node!: RepoEntry;
   @Input() disabled!: boolean;
 

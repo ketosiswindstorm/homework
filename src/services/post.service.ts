@@ -98,8 +98,9 @@ export class PostService {
       );
   }
 
-  private getPostURL() {
-    let base = this.apiService.getPostURL();
+
+  private getPostURL(postCount: boolean = false) {
+    let base = postCount ? this.apiService.getPostCountURL() : this.apiService.getPostURL();
     base += `&tags=${this.includedTagSet()
       .map((t) => t.name)
       .join(' ')}`;
@@ -120,7 +121,7 @@ export class PostService {
 
   async getPostCount() {
     this.http
-      .get(this.getPostURL().replace('&json=1', ''), {
+      .get(this.getPostURL(true), {
         responseType: 'text',
       })
       .subscribe((xmlString) => {

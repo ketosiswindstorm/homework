@@ -79,8 +79,35 @@ app-home {
         display: none;
         pointer-events: none;
       }
+
+      & image-scroll-preview {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+      }
     }
   }
+}
+
+post-element[data-fullscreen="true"] image-scroll-preview {
+  top: 0;
+  left: 0;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  cursor: zoom-out;
+  overflow-y: scroll;
+  pointer-events: all;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+post-element[data-fullscreen="false"] image-scroll-preview {
+  width: 0;
+  height: 0;
+  display: none;
+  pointer-events: none;
 }
 
 .tag {
@@ -162,4 +189,8 @@ app-home {
 .nav-btn--accent:hover {
   background: rgba(0, 140, 255, 0.25);
   border-color: rgba(0, 140, 255, 0.55);
+}
+
+:root:has(.fullscreen) img.tall {
+  cursor: zoom-in;
 }

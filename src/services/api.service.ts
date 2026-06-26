@@ -17,6 +17,10 @@ export class APIService {
     return `${this.prefix}s=post&q=index&json=1&limit=${this.settingsService.postsPerPage.get()}`;
   }
 
+  public getPostCountURL() {
+    return `${this.prefix}s=post&q=index&limit=${this.settingsService.postsPerPage.get()}`;
+  }
+
   public getTagURL(tag: string) {
     return `${this.prefix}s=tag&q=index&limit=20&name=${tag}`;
   }

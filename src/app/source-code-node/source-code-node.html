@@ -20,6 +20,6 @@
 
 @if (expanded() && node.children?.length) {
   @for (child of node.children; track child.path) {
-    <repo-node [node]="child"></repo-node>
+    <source-code-node [node]="child"></source-code-node>
   }
 }

@@ -31,82 +31,123 @@
   flex-direction: column;
 
   & > .tag {
+    --tag-control-scale: 1.0;
+    --tag-control-xmove: -50%;
+
+    height: 37px;
     cursor: default;
     font-size: 12px;
     font-weight: 500;
     margin: auto auto;
     user-select: none;
-    height: min-content;
     align-items: center;
     border-radius: 999px;
     display: inline-flex;
     letter-spacing: 0.2px;
     width: calc(100% - 60px);
     padding: 2px 2px 2px 1rem;
+    transition: all 160ms ease;
     color: rgba(255, 255, 255, 0.85);
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: background 160ms ease, border 160ms ease;
 
-    &.selected{
+    &.included {
+      color: #d8ffe3;
+      background: rgba(76, 217, 100, 0.12);
+      border-color: rgba(76, 217, 100, 0.35);
+    }
+
+    &.excluded {
+      color: #ffd0d0;
+      background: rgba(255, 80, 80, 0.12);
+      border-color: rgba(255, 80, 80, 0.35);
+    }
+
+    &.selected {
       background: rgba(0, 140, 255, 0.24);
       border-color: rgba(0, 140, 255, 0.4);
-    }
 
-    &.selected.include > .controls > .include {
-      height: 37px;
-      min-width: 43px;
-      background: rgba(0, 140, 255, 0.48);
-      border-color: rgba(0, 140, 255, 0.8);
-    }
+      & > .controls {
+        & > .include.selected {
+          --tag-control-scale: 1.1;
+          background: rgba(0, 140, 255, 0.22);
+          border-color: rgba(0, 140, 255, 0.65);
+        }
 
-    &.selected.exclude > .controls >.exclude {
-      height: 37px;
-      min-width: 43px;
-      background: rgba(255, 80, 80, 0.48);
-      border-color: rgba(255, 80, 80, 0.8);
+        & > .exclude.selected {
+          --tag-control-scale: 1.1;
+          background: rgba(255, 80, 80, 0.22);
+          border-color: rgba(255, 80, 80, 0.65);
+        }
+      }
     }
 
     & > .controls {
       display: flex;
       margin-left: auto;
+      position: relative;
 
       & > div {
-        height: 34px;
+        right: 0;
+        height: 26px;
         display: flex;
-        min-width: 40px;
+        min-width: 34px;
         cursor: pointer;
         user-select: none;
+        position: absolute;
         align-items: center;
         border-radius: 999px;
         justify-content: center;
-        margin: auto 1rem auto 0;
+        transition: all 160ms ease;
         border: 1px solid rgba(255, 255, 255, 0.12);
-        transition: background 160ms ease, border 160ms ease;
+        transform: translateY(-50%) translateX(var(--tag-control-xmove)) scale(var(--tag-control-scale));
 
         &.include {
           color: #cfe9ff;
+          --tag-control-xmove: calc(-100% - 20px);
           background: rgba(0, 140, 255, 0.12);
           border-color: rgba(0, 140, 255, 0.35);
         }
 
         &.include:hover {
+          --tag-control-scale: 1.1;
           background: rgba(0, 140, 255, 0.22);
           border-color: rgba(0, 140, 255, 0.65);
         }
 
         &.exclude {
           color: #ffd0d0;
+          --tag-control-xmove: -10px;
           background: rgba(255, 80, 80, 0.12);
           border-color: rgba(255, 80, 80, 0.35);
         }
 
         &.exclude:hover {
+          --tag-control-scale: 1.1;
           background: rgba(255, 80, 80, 0.22);
           border-color: rgba(255, 80, 80, 0.65);
         }
       }
     }
+  }
+}
+
+img {
+  top: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  z-index: 10000;
+  right: 0.25rem;
+  cursor: pointer;
+  position: absolute;
+  pointer-events: all;
+  transition: all 160ms ease;
+
+  &:hover {
+    transform: scale(1.25);
+    transform-origin: 50% 50%;
+    filter: drop-shadow(0 0 3px gray);
   }
 }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { RepoNode } from './repo-node/repo-node';
+import { SourceCodeNode } from '../source-code-node/source-code-node';
 import { ActivatedRoute } from '@angular/router';
 import { SettingsService } from '../../services/settings.service';
 import { DEFAULT_COMPONENT_CONFIG } from '../../constants/APP_COMPONENT';
@@ -37,7 +37,7 @@ type FileData = {
   ...DEFAULT_COMPONENT_CONFIG,
   selector: 'source-code',
   standalone: true,
-  imports: [RepoNode],
+  imports: [SourceCodeNode],
   templateUrl: './source-code.html',
   styleUrl: './source-code.scss',
 })

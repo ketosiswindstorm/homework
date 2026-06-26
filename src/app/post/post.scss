@@ -12,11 +12,6 @@ video {
   height: calc(70vh - var(--navigation-bar-height));
 }
 
-img.fullscreen, video.fullscreen {
-  margin: 0;
-  object-fit: contain;
-}
-
 .post-tags-wrapper {
   margin: 20px;
   display: flex;
@@ -95,12 +90,12 @@ img.fullscreen, video.fullscreen {
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 
-  &:hover{
+  &:hover {
     font-size: calc(1.5rem * 1.05);
     transform: scale(1.05);
   }
 
-  &.hide{
+  &.hide {
     width: 0;
     height: 0;
     display: none;

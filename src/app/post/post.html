@@ -1,5 +1,5 @@
 @if (post) {
-  <title>{{post.id}}</title>
+  <title>{{ post.id }}</title>
   @if (post.file_url.endsWith(".mp4")) {
     <video
       #media
@@ -15,6 +15,8 @@
       #media
       [src]="post.file_url"
       [alt]="post.file_url"
+      [class]="getImageClass()"
+      (click)="toggleImagePreview()"
     />
   }
   <div class="post-tags-wrapper">
@@ -30,4 +32,8 @@
     </div>
   </div>
   <div (click)="goFullscreen.emit(post.id)" class="fullscreen-btn">⛶</div>
+
+  @if (getImageClass() === 'tall' && showImageScroll()) {
+    <image-scroll-preview [src]="post?.file_url" (toggleImagePreview)="toggleImagePreview()"></image-scroll-preview>
+  }
 }

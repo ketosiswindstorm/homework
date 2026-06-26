@@ -1,6 +1,6 @@
 <div id="source-navigator">
   @for (entry of entries(); track entry.path) {
-    <repo-node [node]="entry" [disabled]="loading()"></repo-node>
+    <source-code-node [node]="entry" [disabled]="loading()"></source-code-node>
   }
 </div>
 <div id="code-block">

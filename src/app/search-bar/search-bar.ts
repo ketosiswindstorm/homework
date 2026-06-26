@@ -1,13 +1,15 @@
 import { Component, ElementRef, HostListener, signal, OnInit, OnDestroy } from '@angular/core';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil, of } from 'rxjs';
-import { PostService } from '../../../services/post.service';
-import { SimpleTag } from '../../../model/Tag';
-import { SettingsService } from '../../../services/settings.service';
+import { PostService } from '../../services/post.service';
+import { SimpleTag } from '../../model/Tag';
+import { SettingsService } from '../../services/settings.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'search-bar',
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.scss',
+  imports: [MatIcon],
 })
 export class SearchBar implements OnInit, OnDestroy {
   protected searchText = '';
@@ -48,7 +50,11 @@ export class SearchBar implements OnInit, OnDestroy {
   protected async onKeyUp(e: KeyboardEvent) {
     const simpleTag = this.autocomplete().at(this.selectedOption());
     if (e.key === 'Enter' && simpleTag) {
-      await this.handleTagClick(simpleTag);
+      if (this.addOrExclude() === 'include') {
+        await this.handleTagClick(simpleTag);
+      } else {
+        await this.handleTagClickExclude(simpleTag);
+      }
     }
   }
 
@@ -108,8 +114,6 @@ export class SearchBar implements OnInit, OnDestroy {
       base += ' selected';
     }
 
-    base += ` ${this.addOrExclude()}`;
-
     return base;
   }
 
@@ -126,11 +130,7 @@ export class SearchBar implements OnInit, OnDestroy {
   }
 
   protected async handleTagClick(tag: SimpleTag) {
-    const result =
-      this.addOrExclude() === 'include'
-        ? await this.postService.handleSimpleTag(tag)
-        : await this.postService.handleSimpleTagExclude(tag);
-
+    const result = await this.postService.handleSimpleTag(tag);
     if (!this.settingsService.clearAfterSelectTag.get()) {
       return;
     }

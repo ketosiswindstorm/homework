@@ -1,7 +1,5 @@
 import {
-  ChangeDetectorRef,
   Component,
-  computed,
   effect,
   ElementRef,
   EventEmitter,
@@ -12,15 +10,16 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { Post } from '../../../model/Post';
-import { PostService } from '../../../services/post.service';
-import { SettingsService } from '../../../services/settings.service';
-import { DEFAULT_COMPONENT_CONFIG } from '../../../constants/APP_COMPONENT';
+import { Post } from '../../model/Post';
+import { PostService } from '../../services/post.service';
+import { SettingsService } from '../../services/settings.service';
+import { DEFAULT_COMPONENT_CONFIG } from '../../constants/APP_COMPONENT';
+import { ImageScrollPreview } from '../image-scroll-preview/image-scroll-preview';
 
 @Component({
   ...DEFAULT_COMPONENT_CONFIG,
   selector: 'post-element',
-  imports: [],
+  imports: [ImageScrollPreview],
   templateUrl: './post.html',
   styleUrl: './post.scss',
 })
@@ -28,6 +27,7 @@ export class PostElement {
   @ViewChild('media') mediaElement?: ElementRef<HTMLVideoElement | HTMLImageElement>;
 
   @Input() post?: Post;
+
   @Output() goFullscreen = new EventEmitter<number>();
 
   @HostBinding('attr.data-id')
@@ -36,6 +36,12 @@ export class PostElement {
   }
 
   inView = signal<boolean>(false);
+  showImageScroll = signal<boolean>(false);
+  activeFullscreen = signal<boolean>(false);
+
+  @HostBinding('attr.data-fullscreen') get fullscreen() {
+    return this.activeFullscreen();
+  }
 
   constructor(
     protected readonly postService: PostService,
@@ -51,6 +57,7 @@ export class PostElement {
 
     effect(() => {
       let isFullscreen = this.postService.fullscreenPost() === this.post?.id;
+      this.activeFullscreen.set(isFullscreen);
       if (isFullscreen) {
         setTimeout(() => {
           this.mediaElement?.nativeElement.scrollIntoView({ behavior: 'smooth' });
@@ -72,6 +79,13 @@ export class PostElement {
     const txt = document.createElement('textarea');
     txt.innerHTML = html;
     return txt.value;
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  protected onKeyUp($event: KeyboardEvent) {
+    if (($event.key === ' ' || $event.key === 'Space') && this.getImageClass() === 'tall') {
+      this.toggleImagePreview();
+    }
   }
 
   @HostListener('window:wheel')
@@ -96,5 +110,21 @@ export class PostElement {
 
   ngAfterViewInit() {
     this.updateInView();
+  }
+
+  protected getImageClass() {
+    if (!this.post) {
+      return '';
+    }
+
+    if (this.post.height / this.post.width > 3.0) {
+      return 'tall';
+    }
+
+    return '';
+  }
+
+  protected toggleImagePreview() {
+    this.showImageScroll.set(!this.showImageScroll());
   }
 }
